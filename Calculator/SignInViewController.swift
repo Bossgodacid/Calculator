@@ -7,9 +7,34 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class SignInViewController: UIViewController {
 
+    @IBOutlet weak var Password: UITextField!
+    @IBOutlet weak var Email: UITextField!
+    @IBAction func Login(_ sender: Any) {
+        if Email.text! != nil && Password.text! != nil{
+            Auth.auth().signIn(withEmail: Email.text!, password: Password.text!) { (user, error) in
+                if user != nil{
+                    print("user logged in")
+                }else{
+                    print(error?.localizedDescription)
+                }
+            }
+        }
+    }
+    @IBAction func SignUp(_ sender: Any) {
+        if Email.text! != nil && Password.text! != nil {
+            Auth.auth().createUser(withEmail: Email.text!, password: Password.text!) { (user, error) in
+                if user != nil{
+                    print("user created")
+                }else{
+                    print(error?.localizedDescription)
+                }
+            }
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
